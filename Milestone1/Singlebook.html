@@ -66,6 +66,29 @@ main {
     line-height: 1.5;
 }
 
+footer {
+    width: 100%;
+    margin: 0 auto;
+
+    background-color: black;
+    color: white;
+
+    text-align: center;
+
+    padding: 10px 0;
+}
+
+footer a {
+    color: white;
+    font-weight: bold;
+}
+
+footer p {
+    color: red;
+    font-size: 13px;
+    margin: 5px 0;
+}
+
 
     </style>
 
@@ -79,6 +102,15 @@ main {
     </header>
 
     <main>
+        <div class="book-container">
+
+            <h1>Book Information</h1>
+
+            <div id="bookinfo">
+
+            </div>
+
+        </div>
 
     </main>
 
@@ -93,6 +125,29 @@ main {
           
         </p>
     </footer>
+
+    <script>
+        $(document).ready(function() {
+            $getJSON("openlibrary-book.json", function(data) {
+                    $("#bookinfo).html(
+
+                      "<p><strong>Title:</strong> " +
+                        data.title +
+                        "</p>" +
+
+                        "<p><strong>Publisher:</strong> " +
+                        data.publishers[0] +
+                        "</p>" +
+
+                        "<p><strong>Publication Date:</strong> " +
+                        data.publish_date +
+                        "</p>" +
+
+                        "<p><strong>Number of Pages:</strong> " +
+                        data.number_of_pages +
+                        "</p>" +
+                        
+    </script>
 
 </body>
 </html>
