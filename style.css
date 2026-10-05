@@ -81,7 +81,8 @@ main {
     border-top: 2px solid gray;
 
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 100px;
 }
 
 .navigation a {
