@@ -4,11 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <title>Lab 3 - Exercise 3</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
 
    <h1>Read JSON Values Using JavaScript and jQuery</h1>
+
+    <h2>First Book Details</h2>
+
+    <div>
+        <p id="title"></p>
+        <p id="author"></p>
+        <p id="price"></p>
+    </div>
+
+    <h2>All Books</h2>
+    <div id="booklist"></div>
+    <script>
+        var data = {
+            "books": [
+                {
+                    "title": "Web Development Basics",
+                    "author": "Maya Lee",
+                    "price": 29.99
+                },
+                {
+                    "title": "Modern JavaScript",
+                    "author": "Daniel Kim",
+                    "price": 34.50
+                },
+                {
+                    "title": "Learning jQuery",
+                    "author": "Sarah Johnson",
+                    "price": 24.99
+                }
+            ]
+        };
+
+        $("#title").text("Title: " + data.books[0].title);
+        $("#author").text("Author: " + data.books[0].author);
+        $("#price").text("Price: " + data.books[0].price);
+
+        $.each(data.books, function(index, book) {
+            $("#booklist").append(
+                "<div>" + 
+                "<p>Title: " + book.title + "</p>" +
+                "<p>Author: " + book.author + "</p>" +
+                "<p>Price: $" + book.price + "</p>" +
+                "</div>"
+                
+            );
+
+        });
+        
+        
+        
+    </script>
+    
 
 </body>
 
