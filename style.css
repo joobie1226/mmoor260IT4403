@@ -19,6 +19,8 @@ body {
 
     text-align: center;
 
+    box-sizing: border-box;
+
 }
 
 .header h1 {
@@ -88,6 +90,33 @@ main {
     font-weight: bold;
     text-decoration: underline;
 }
+
+.lab-exercises {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.lab-exercises h2 {
+    text-align: center;
+}
+
+.lab-exercises ul {
+    padding: 0;
+    margin: 20px aut0;
+    list-style-position: inside;
+    text-align: center;
+}
+
+.lab-exercises li {
+    margin: 10px 0;
+}
+
+.lab-exercises a {
+    color: black;
+}
+
+
+
 
 
 footer {
