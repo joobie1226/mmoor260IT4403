@@ -128,8 +128,8 @@ footer p {
 
     <script>
         $(document).ready(function() {
-            $getJSON("../openlibrary-book.json", function(data) {
-                    $("#bookinfo).html(
+            $getJSON("openlibrary-book.json", function(data) {
+                    $("#bookinfo").html(
 
                       "<p><strong>Title:</strong> " +
                         data.title +
@@ -146,6 +146,10 @@ footer p {
                         "<p><strong>Number of Pages:</strong> " +
                         data.number_of_pages +
                         "</p>" +
+                    );
+            });
+        });
+        
                         
     </script>
 
