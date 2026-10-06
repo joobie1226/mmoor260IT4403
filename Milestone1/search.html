@@ -67,17 +67,17 @@ main {
   
 }
 
-#bookinfo img {
+#book img {
     max-width: 250px;
     height: auto;
     margin-bottom: 20px;
 }
 
-#bookinfo a {
+#book a {
     color: blue;
 }
 
-#bookinfo p {
+#book p {
     margin: 10px;
 }
 
@@ -150,6 +150,12 @@ footer p {
 
                       "<div class='book'>" +
 
+                        "<img src='https://covers.openlibrary.org/b/is/" +
+                        data.docs[i].cover_i +
+                        "-M.jpg' alt='Cover of " +
+                        data.docs[i].title +
+                        "'>" +
+
                       "<h2>" +
                       data.docs[i].title +
                       "</h2>" +
@@ -173,6 +179,10 @@ footer p {
                     "<p><strong>Number of Editions:</strong> " +
                       data.docs[i].edition_count +
                       "</p>" +
+
+                        "<p><a href='https://openlibrary.org" +
+                        data.docs[i].key + 
+                        "'>View on Open Library</a></p> +
                         
                       "</div>"
                       
