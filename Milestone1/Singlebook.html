@@ -66,6 +66,20 @@ main {
     line-height: 1.5;
 }
 
+#bookinfo img {
+    max-width: 250px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#bookinfo a {
+    color: blue;
+}
+
+#bookinfo p {
+    margin: 10px;
+}
+
 footer {
     width: 100%;
     margin: 0 auto;
@@ -130,6 +144,12 @@ footer p {
         $(document).ready(function() {
             $.getJSON("openlibrary-book.json", function(data) {
                     $("#bookinfo").html(
+
+                        "<img src='https://covers.openlibrary.org/b/id/" +
+                        data.covers[0] +
+                        "-L.jpg' alt='Cover of " +
+                        data.title +
+                        "'>" +
 
                       "<p><strong>Title:</strong> " +
                         data.title +
