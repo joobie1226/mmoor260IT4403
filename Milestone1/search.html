@@ -1,1 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Book Search Results</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+            .header {
+    width: 100%;
+    margin: 30px auto 0;
+    padding: 25px;
+
+    background-color: #f5f5f5;
+
+    text-align: center;
+
+    box-sizing: border-box;
+
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 36px;
+    text-align: center;
+}
+
+.header h2 {
+    margin: 5px 0 0;
+    font-size: 28px;
+    text-align: center;
+}
+
+
+main {
+    width: 100%;
+    margin: 0;
+
+    background-color: #f5f5f5;
+
+    flex: 1;
+
+    padding: 60px 10%;
+
+    box-sizing: border-box;
+
+    text-align: center;
+}
+
+.search-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.search-container h1 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.book {
+   background-color: white;
+  
+  
+}
+
+#bookinfo img {
+    max-width: 250px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#bookinfo a {
+    color: blue;
+}
+
+#bookinfo p {
+    margin: 10px;
+}
+
+footer {
+    width: 100%;
+    margin: 0 auto;
+
+    background-color: black;
+    color: white;
+
+    text-align: center;
+
+    padding: 10px 0;
+}
+
+footer a {
+    color: white;
+    font-weight: bold;
+}
+
+footer p {
+    color: red;
+    font-size: 13px;
+    margin: 5px 0;
+}
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Matthew Moore</h1>
+        <h2>Kennesaw State University</h2>
+    </header>
+
+    <main>
+        <div class="search-container">
+
+            <h1>Search Results</h1>
+
+            <div id="bookresults">
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+        <a href="https://ccse.kennesaw.edu/it/">
+            CCSE Department of IT Website
+        </a>
+
+        <p>
+            This is a student website created for course projects in IT 4403 <br>
+          
+        </p>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            $.getJSON("openlibrary-search.json", function(data) {
+
+              for (var i = 0; i < data.docs.length; i++) {
+                    $("#bookresults").append(
+
+                      "<div class='book'>" +
+
+                      "<h2>" +
+                      data.doc[i].title +
+                      "<h2>" +
+
+                      "<p><strong>Author:</strong> " +
+                      data.docs[i].title +
+                      "</p> +
+
+                      "<p><strong>First Published:</strong> " +
+                      data.docs[i].first_publish_year +
+                      "</p> +
+
+                      "</div>"
+                      
+
+                        
+                    );
+            });
+        });
+        
+                        
+    </script>
+
+</body>
+</html>
