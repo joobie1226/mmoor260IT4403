@@ -37,8 +37,57 @@
 
     </main>
 
-  
+    <script>
+        $(document).ready(function() {
 
+            $("#searchButton").click(function() {
+
+                var searchTerm =$("#searchInput").val().trim();
+
+                if (searchTerm === "") {
+                    $("#searchResults").text("Don't leave me empty.");
+                    return;
+                }
+                var url = "https://openlibrary.org/search.json?q="
+                    + encodeURIComponent(searchTerm) + "&limit=10&page=1;
+
+                $("#searchResults").text("Searching...");
+
+                $.getJSON(url, function(data) {
+                    $("#searchResults").empty();
+
+                    if(data.docs.length ===0) {
+                        $("#searchResults").text("No books found.");
+                        return;
+                    }
+
+                    for (var i=0; i < data.docs.length; i++) {
+                        var book = data.docs{i};
+                        var title = book.title || "Unknown Title";
+                        
+                        var result = $("<div></div>");
+                        result.append($("<h3></h3>").text(title));
+
+                        if (book.cover_i) {
+                            var cover = "https://covers.openlibrary.org/b/id/"
+                                + book.cover_i + "-S.jpg";
+
+                            result.append($("<img>").attr("src", cover)
+                                          .attr("alt", "Cover of "+ title));
+                        } else {
+                            result.append("<p>No cover available</p>");
+                        }
+
+                        $("#searchResults").append(result);
+                    }
+                }).fail(function() {
+                    $("#searchResults").text("Unable to retreive books.");
+                });
+            });
+        });
+    </script>
+                                                          
+                
     <footer>
         <a href="https://ccse.kennesaw.edu/it/">
             CCSE Department of IT Website
