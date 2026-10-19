@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Book Details</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Open Library Book Details</h1>
+
+        <nav> 
+            <a href="bookSearch.html">Home</a>
+            <a href="bookshelf.html">My Bookshelf</a>
+        </nav>
+    </header>
+
+    <main>
+      <h2>Book Information</h2>
+
+        <div id="bookDetails"></div>
+          
+    </main>
+
+  <script>
+    $(document).ready(function() {
+
+      var params = new URLSearchParams(window.location.search);
+      var workID = params.get("id");
+
+      if(!workID) {
+        $("#bookDetails").text("No book selected.");
+        return;
+      }
+
+      workID = workID.replace("/works/", "");
+      var url = "https://openlibrary.org/works/" + workID + ".json";
+
+      $("#bookDetails").text("loading book information...");
+
+      $.getJSON(url, function(book) {
+        $("#bookDetails").empty();
+
+        var title = book.title || "Unknown Title";
+
+        $("#bookDetails").append($("<h3></h3>").text(title));
+        $("#bookDetails").append($("<p></p>").text("Work ID: " + workID));
+
+        if (book.description) {
+          var description = book.description;
+
+          if (typeof description === "object" {
+            description = description.value; 
+        }
+
+        $("#bookDetails").append($("<p></p>").text(description || "No description found"));
+
+      } else {
+                $("#bookDeatils").append($("<p>No description found.</p>");
+      }
+
+      if (book.subjects && book.subjects.length > 0) {
+        $("#bookDetails").append($("<h3>Subjects</h3>"));
+
+        var subjects = $("<ul></ul>");
+
+        for (var i = 0; i < Math.min(10, book.subjects.length); i++) {
+          subjects.append($("<li></li>").text(book.subjects[i]));
+        }
+
+        $("#bookDetails").append(subjects);
+
+      } else {
+        $("#bookDetails").append("<p>No subjects found.</p>");
+      }
+
+      if(book.covers && book.covers.length > 0) {
+         var cover = "https://covers.openlibrary.org/b/id/"
+          + book.covers[0] +"-M.jpg";
+
+        $("#bookDetails")append(
+          $("<img>")
+            .attr("src", cover)
+            .attr("alt", "Cover of " + title)
+
+          );
+
+      } else {
+        $("#bookDeatils").append("<p>No cover found.</p>");
+      }
+      var openLibraryLink = "https://openlibrary.org/works/" + workID;
+        $("#bookDetails").append(
+          $("<p></p>").append(
+            $("<a></a>")
+              .attr("href", openLibraryLink")
+              .text("VIew on Open Library")
+          )
+        );
+
+      }).fail(function() {
+        $("#bookDetails").text("Unable to find book information.");
+    });
+    });
+  </script>
+
+</body>
+</html>
