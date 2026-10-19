@@ -33,6 +33,18 @@
 
       <button id="searchButton">Search</button>
 
+        <div id="pagination" style ="display: none;"
+            <label for="pageSelect">Select Page:</label>
+
+            <select id="pageSelect">
+                <option value="1">Page1</option>
+                <option value="2">Page2</option>
+                <option value="3">Page3</option>
+                <option value="4">Page4</option>
+                <option value="5">Page5</option>
+                <option value="6">Page6</option>
+            </select>
+
       <div id="searchResults"></div>
 
     </main>
@@ -40,16 +52,35 @@
     <script>
         $(document).ready(function() {
 
+            var searchTerm = "";
+            var currentPage =1;
+
             $("#searchButton").click(function() {
 
-                var searchTerm =$("#searchInput").val().trim();
+                searchTerm =$("#searchInput").val().trim();
+                currentPage = 1;
 
                 if (searchTerm === "") {
+                    $("#pagination").hide();
                     $("#searchResults").text("Don't leave me empty.");
                     return;
                 }
+
+                $("#pageSelect").val("1");
+                searchBooks();
+                
+            });
+
+            $("#pageSelect").change(function() {
+                currentPage = Number($("#pageSelect").val());
+                searchBooks();
+            });
+            function searchBooks(): {
+                
                 var url = "https://openlibrary.org/search.json?q="
-                    + encodeURIComponent(searchTerm) + "&limit=10&page=1;
+                    + encodeURIComponent(searchTerm) 
+                    + "&limit=10&page=" + currentPage;
+                
 
                 $("#searchResults").text("Searching...");
 
@@ -57,9 +88,27 @@
                     $("#searchResults").empty();
 
                     if(data.docs.length ===0) {
+                        $("#pagination").hide();
                         $("#searchResults").text("No books found.");
                         return;
                     }
+
+                    var totalResults =data.numFound || 0;
+                    var totalPages = Math.min(6, Mathe.ceil(totalResults / 10));
+
+                    $("#pageSelect").empty();
+
+                    for(var p = 1; p <= totalPages; p++) {
+                        $("#pageSelect").append(
+                            $("<option></option>")
+                                .val(p)
+                                .text("Page " + p)
+                        );
+                    }
+
+                    $("#pageSelect").val(String(currentPage));
+                    $("#pagination").show():
+                    
 
                     for (var i=0; i < data.docs.length; i++) {
                         var book = data.docs{i};
@@ -81,23 +130,13 @@
                         $("#searchResults").append(result);
                     }
                 }).fail(function() {
+                    $("#pagination").hide();
                     $("#searchResults").text("Unable to retreive books.");
                 });
             });
         });
     </script>
                                                           
-                
-    <footer>
-        <a href="https://ccse.kennesaw.edu/it/">
-            CCSE Department of IT Website
-        </a>
-
-        <p>
-            This is a student website created for course projects in IT 4403 <br>
-          
-        </p>
-    </footer>
 
 </body>
 </html>
