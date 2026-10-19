@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,14 +59,14 @@
         if (book.description) {
           var description = book.description;
 
-          if (typeof description === "object" {
+          if (typeof description === "object") {
             description = description.value; 
         }
 
         $("#bookDetails").append($("<p></p>").text(description || "No description found"));
 
       } else {
-                $("#bookDeatils").append($("<p>No description found.</p>");
+                $("#bookDetails").append("<p>No description found.</p>");
       }
 
       if (book.subjects && book.subjects.length > 0) {
@@ -87,7 +88,7 @@
          var cover = "https://covers.openlibrary.org/b/id/"
           + book.covers[0] +"-M.jpg";
 
-        $("#bookDetails")append(
+        $("#bookDetails").append(
           $("<img>")
             .attr("src", cover)
             .attr("alt", "Cover of " + title)
@@ -95,7 +96,7 @@
           );
 
       } else {
-        $("#bookDeatils").append("<p>No cover found.</p>");
+        $("#bookDetails").append("<p>No cover found.</p>");
       }
       var openLibraryLink = "https://openlibrary.org/works/" + workID;
         $("#bookDetails").append(
