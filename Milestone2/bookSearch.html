@@ -116,7 +116,20 @@
                         var title = book.title || "Unknown Title";
                         
                         var result = $("<div></div>");
+
+                        var workID = book.key;
+                        
+
+                    if(workID) {
+                        var bookLink = $("<a></a>")
+                            .attr("href", "details.html?id=" + encodeURIComponent(workID))
+                            .text(title);
+
+                        result.append($("<h3></h3>").append(bookLink));
+                    } else {
+                        
                         result.append($("<h3></h3>").text(title));
+                    }
 
                         if (book.cover_i) {
                             var cover = "https://covers.openlibrary.org/b/id/"
