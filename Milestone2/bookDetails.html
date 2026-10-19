@@ -99,18 +99,19 @@
         $("#bookDetails").append("<p>No cover found.</p>");
       }
       var openLibraryLink = "https://openlibrary.org/works/" + workID;
+        
         $("#bookDetails").append(
           $("<p></p>").append(
             $("<a></a>")
               .attr("href", openLibraryLink")
-              .text("VIew on Open Library")
+              .text("View on Open Library")
           )
         );
 
       }).fail(function() {
         $("#bookDetails").text("Unable to find book information.");
     });
-    });
+});
   </script>
 
 </body>
