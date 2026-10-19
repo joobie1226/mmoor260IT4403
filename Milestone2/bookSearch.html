@@ -95,7 +95,7 @@
                     }
 
                     var totalResults =data.numFound || 0;
-                    var totalPages = Math.min(6, Mathe.ceil(totalResults / 10));
+                    var totalPages = Math.min(6, Math.ceil(totalResults / 10));
 
                     $("#pageSelect").empty();
 
@@ -108,11 +108,11 @@
                     }
 
                     $("#pageSelect").val(String(currentPage));
-                    $("#pagination").show():
+                    $("#pagination").show();
                     
 
                     for (var i=0; i < data.docs.length; i++) {
-                        var book = data.docs{i};
+                        var book = data.docs[i];
                         var title = book.title || "Unknown Title";
                         
                         var result = $("<div></div>");
