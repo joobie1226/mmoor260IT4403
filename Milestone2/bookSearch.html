@@ -76,7 +76,7 @@
                 currentPage = Number($("#pageSelect").val());
                 searchBooks();
             });
-            function searchBooks(): {
+            function searchBooks() {
                 
                 var url = "https://openlibrary.org/search.json?q="
                     + encodeURIComponent(searchTerm) 
