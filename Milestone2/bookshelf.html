@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>My Bookshelf</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Books</h1>
+
+        <nav> 
+            <a href="bookSearch.html">Home</a>
+            <a href="bookshelf.html">My Bookshelf</a>
+        </nav>
+    </header>
+
+    <main>
+      <h2>Favorite Books</h2>
+
+      <p>The books displayed before you are some of my personal favorites, and I recommend them all!</p>
+
+        <div id="bookshelfResults"></div>
+          
+    </main>
+
+  <script>
+    $(document).ready(function() {
+
+      var myBooks = [
+        "OL796465W",
+        "OL21745286W",
+        "OL15719630W",
+      ];
+
+      for (var i = 0; i< myBooks.length; i++) {
+        var workID = myBooks[i];
+
+        var url = "https://openlibrary.org/works/" + workID + ".json";
+
+        $.getJSON(url, function(book) {
+
+          var title = book.title || "Unknown Title";
+          var bookID = book.key.replace("/works/", "");
+          
+          var result = $("<div></div>");
+
+          var bookLink = $("<a></a>")
+            .attr("href", "bookDetails.html?id=" + encodeURIComponent(bookID))
+            .text(title);
+
+          result.append($("<h3></h3>").append(bookLink));
+           if (book.covers && book.covers.length > 0) {
+
+             var cover = "https://covers.openlibrary.org/b/id/"
+               + book.covers[0] + "-S.jpg";
+
+             result.append(
+               $("<img>")
+                 .attr("src", cover)
+                 .attr("alt", "Cover of " + title)
+            );
+
+           } else { 
+             result.append("<p>No cover available.</p>");
+           }
+
+          $("#bookshelfResults").append(result);
+
+          }).fail(function() {
+              $("#bookshelfResults").append(
+                "<p>Unable to retreive a book.</p>"
+              );
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
