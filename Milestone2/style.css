@@ -36,8 +36,9 @@ button {
     cursor: pointer;
 }
 
-#searchResults {
-    margin-top: 30px;
+#searchResults, #bookshelfResults {
+    max-width: 900px;
+    margin-top: 30px auto;
 }
 
 #bookDetails {
@@ -71,4 +72,23 @@ button {
 #bookDetails a {
     display: inline-block;
     margin-top: 10px;
+}
+
+#searchResults > div, #bookshelfResults > div {
+    display: inline-block;
+    width: 180px;
+    padding: 15px;
+    margin: 10px;
+    vertical-align: top;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#searchResults h3, #bookshelfResults h3 {
+    font-size: 16px;
+}
+
+#searchResults img, #bookshelfResults img {
+    max-width: 100px;
+    height: auto;
 }
