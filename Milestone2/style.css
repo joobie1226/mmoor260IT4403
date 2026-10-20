@@ -40,3 +40,35 @@ button {
     margin-top: 30px;
 }
 
+#bookDetails {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+#bookDetails p {
+    line-height: 1.6;
+    margin: 15px 0;
+}
+
+#bookDetails ul {
+    display: inline-block;
+    text-align: left;
+    padding-left: 25px;
+}
+
+#bookDetails li {
+    margin-bottom: 5px;
+}
+
+#bookDetails img {
+    display: block;
+    margin: 20px auto;
+    max-width: 200px;
+}
+
+#bookDetails a {
+    display: inline-block;
+    margin-top: 10px;
+}
