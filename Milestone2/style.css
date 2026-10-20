@@ -39,6 +39,7 @@ button {
 #searchResults, #bookshelfResults {
     max-width: 900px;
     margin-top: 30px auto;
+    text-align: center;
 }
 
 #bookDetails {
@@ -82,6 +83,7 @@ button {
     vertical-align: top;
     border: 1px solid #ddd;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 #searchResults h3, #bookshelfResults h3 {
