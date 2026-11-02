@@ -206,6 +206,23 @@
               $("<p></p>").text(description)
               );
 
+             for (var i = 0; i < Math.min(10, book.subjects.length); i++) {
+
+              subjectList.append(
+               $("<li></li>").text(book..subjects[i])
+               );
+             }
+
+             $("#bookDetails").append(subjectList);
+
+            } else {
+
+             $("#bookDetails").append(
+              $( $("<p></p>").text("No subjects available")
+                );
+
+            }
+
             }).fail(function() {
 
              $("#bookDetails").text("Unable to retreive book information.");
