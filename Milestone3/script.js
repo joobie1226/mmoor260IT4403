@@ -250,5 +250,42 @@
                                        
         });
            }
+    function loadBookCollection() {
+
+     var url = "https://openlibrary.org/subjects/history.json?limit=10";
+
+     $("#collectionResults").text("Loading history books...");
+
+     $.getJSON(url, function(data) {
+
+      $("#collectionResults").empty();
+
+      if (!data.works || data.works.length === 0) {
+       $("#collectionResults").text("No history books found.");
+       return;
+
+      }
+
+      for (var i = 0; i < data.works.length; i++) {
+
+      var book = data.works[i];
+      var title = book.title || "Unknown Title";
+
+       $("#collectionResults").append(
+        $("<p></p>").text(title)
+        );
+
+      }
+
+     }).fail(function() {
+
+      $("#collectionResults").text("Unable to retrieve history books.");
+
+     });
+    }
+
+  loadBookCollection();
+
  });
             
+    
