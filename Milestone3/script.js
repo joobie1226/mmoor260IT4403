@@ -302,6 +302,25 @@
 
        }
 
+       if (book.cover_id) {
+
+        var cover = "https://covers.openlibrary.org/b/id/"
+        + book.cover_id + "-S.jpg";
+
+        result.append(
+         $("<img>")
+          .attr("src", cover)
+          .attr("alt", "Cover of " + title)
+        );
+
+       } else {
+
+        result.append(
+         $("<p></p>").text("No cover available.")
+        );
+
+       }
+
        $("#collectionResults").append(result);
 
       }
