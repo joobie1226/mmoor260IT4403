@@ -35,7 +35,7 @@ button {
     cursor: pointer;
 }
 
-#searchResults, #bookshelfResults {
+#searchResults, #collectionResults {
     max-width: 900px;
     margin: 30px auto;
     display: flex;
@@ -43,7 +43,7 @@ button {
     justify-content: center;
     gap: 20px;
 }
-}
+
 
 #bookDetails {
     max-width: 800px;
@@ -78,7 +78,7 @@ button {
     margin-top: 10px;
 }
 
-#searchResults > div, #bookshelfResults > div {
+#searchResults > div, #collectionResults > div {
      width: 180px;
     padding: 15px;
     border: 1px solid #ddd;
@@ -87,11 +87,11 @@ button {
     text-align: center;
 }
 
-#searchResults h3, #bookshelfResults h3 {
+#searchResults h3, #collectionResults h3 {
     font-size: 16px;
 }
 
-#searchResults img, #bookshelfResults img {
+#searchResults img, #collectionResults img {
     max-width: 100px;
     height: auto;
 }
