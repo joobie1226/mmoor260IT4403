@@ -232,6 +232,18 @@
 
             }
 
+            var openLibraryURL = "https://openlibrary.org/works/" + workID;
+
+             $("#bookDetails").append(
+              $("<p></p>").append(
+               $("<a></a>")
+                .attr("href", openLibraryURL)
+                .attr("target", "_blank")
+                .attr("rel", "noopener noreferrer")
+                .text("View on Open Library")
+               )
+              );
+
             }).fail(function() {
 
              $("#bookDetails").text("Unable to retreive book information.");
