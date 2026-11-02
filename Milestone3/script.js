@@ -143,6 +143,54 @@
               $("<p></p>").text("Work ID: " + workID)
               );
 
+             if (book.covers && book.covers.length > 0){
+
+              var cover = "https://covers.openlibrary.org/b/id/"
+               + book.covers[0] + "-M.jpg";
+
+              $("#bookDetails").append(
+               $("<img>")
+                 .attr("src", cover)
+                 .attr("alt", "Cover of " + title)
+              );
+
+             } else {
+
+              $("#bookDetails").append(
+                $("<p></p>").text("No cover available")
+               );
+
+             }
+
+             if (book.authors && book.authors.length > 0) {
+
+              var authorNames = [];
+
+              for (var i = 0; i < book.authors.length; i++) {
+
+               var authorID = book.author[i].author.key;
+
+               $.getJSON("https://openlibrary.org" + authorID + ".json", function(author) {
+
+                authorNames.push(author.name);
+
+                $("#authorInfo").text("Author(s): " + authorNames.join(", "));
+
+               });
+              }
+
+              $("#bookDetails").append(
+               $("<p></p>").attr("id", "authorInfo").text("Loading author(s)...")
+               );
+
+             } else {
+
+              $("#bookDetails").append(
+               $("<p></p>").text("No author information available")
+               );
+
+             }
+
              var description = "No description available.";
              
              if (typeof book.description === "string") {
