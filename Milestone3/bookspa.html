@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Open Library SPA - Milestone 3</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Open Library Search</h1>
+    </header>
+
+    <main>
+      <h2>Booksearch</h2>
+
+      <p>Enter a keyword for a book you are interested in.</p>
+
+      <input type="text" id="searchInput" placeholder="enter book title or keyword">
+
+      <button id="searchButton">Search</button>
+
+      <h2> Search Results </h2>
+
+      <div id="searchResults"></div>
+
+      <div id="pagination" style="display: none;">
+        <button id="previousPage">Previous</button>
+        <span is="pageInfo"></span>
+        <button id="nextPage"></button>
+      </div>
+
+      <h2>Selected Book Details</h2>
+
+      <div id="bookDetails">
+        <p>Select a book for more information about it</p>
+      </div>
+
+      <h2>Books on History</h2>
+
+      <div id="bookCollection">
+        <p>Loading collection...</p>
+      </div>
+      
+    </main>
+
+   <script src="script.js"></script>
+                                                          
+
+</body>
+</html>
