@@ -168,7 +168,7 @@
 
               for (var i = 0; i < book.authors.length; i++) {
 
-               var authorID = book.author[i].author.key;
+               var authorID = book.authors[i].author.key;
 
                $.getJSON("https://openlibrary.org" + authorID + ".json", function(author) {
 
