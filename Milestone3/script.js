@@ -2,11 +2,15 @@
 
             var searchTerm = "";
             var currentPage =1;
+            var totalPages = 0;
+  
 
             $("#searchButton").click(function() {
 
                 searchTerm =$("#searchInput").val().trim();
                 currentPage = 1;
+                totalPages = 0;
+                $("#pagination").hide();
 
                 if (searchTerm === "") {
                     $("#pagination").hide();
@@ -18,7 +22,25 @@
                 
             });
 
+  $("#previousPage").click(function() {
+   if (currentPage > 1) {
+       currentPage--;
+       searchBooks();
+   }
+  });
+
+  $("#nextPage").click(function () {
+   if(currentPage < totalPages) {
+      currentPage++;
+      searchBooks();
+   }
+  });
+  
             function searchBooks() {
+
+             $("#searchButton").prop("disabled", true);
+             $("#previousPage").prop("disabled", true);
+             $("#nextPage").prop("disabled", true);
                 
                 var url = "https://openlibrary.org/search.json?q="
                     + encodeURIComponent(searchTerm) 
@@ -37,9 +59,11 @@
                     }
 
                     var totalResults =data.numFound || 0;
-                    var totalPages = Math.min(5, Math.ceil(totalResults / 10));
+                    totalPages = Math.min(5, Math.ceil(totalResults / 10));
 
-                 $("#pageInfo").text("Page " + " of " + totalPages);
+                 $("#pageInfo").text("Page " + currentPage + " of " + totalPages);
+                 $("#previousPage").prop("disabled", currentPage === 1);
+                 $("#nextPage").prop("disabled", currentPage === totalPages);
                  $("#pagination").show();
 
                   
@@ -80,6 +104,10 @@
                 }).fail(function() {
                     $("#pagination").hide();
                     $("#searchResults").text("Unable to retreive books.");
+                }).always(function() {
+                    $("#searchButton").prop("disabled", false);
+                    $("#previousPage").prop("disabled", currentPage <=1);
+                    $("#nextPage").prop("disabled", currentPage >= totalPages);
                 });
             }
         });
