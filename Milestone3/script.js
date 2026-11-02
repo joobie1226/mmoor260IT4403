@@ -13,16 +13,11 @@
                     $("#searchResults").text("Don't leave me empty.");
                     return;
                 }
-
-                $("#pageSelect").val("1");
+             
                 searchBooks();
                 
             });
 
-            $("#pageSelect").change(function() {
-                currentPage = Number($("#pageSelect").val());
-                searchBooks();
-            });
             function searchBooks() {
                 
                 var url = "https://openlibrary.org/search.json?q="
@@ -42,20 +37,12 @@
                     }
 
                     var totalResults =data.numFound || 0;
-                    var totalPages = Math.min(6, Math.ceil(totalResults / 10));
+                    var totalPages = Math.min(5, Math.ceil(totalResults / 10));
 
-                    $("#pageSelect").empty();
+                 $("#pageInfo").text("Page " + " of " + totalPages);
+                 $("#pagination").show();
 
-                    for(var p = 1; p <= totalPages; p++) {
-                        $("#pageSelect").append(
-                            $("<option></option>")
-                                .val(p)
-                                .text("Page " + p)
-                        );
-                    }
-
-                    $("#pageSelect").val(String(currentPage));
-                    $("#pagination").show();
+                  
                     
 
                     for (var i=0; i < data.docs.length; i++) {
@@ -69,7 +56,7 @@
 
                     if(workID) {
                         var bookLink = $("<a></a>")
-                            .attr("href", "bookDetails.html?id=" + encodeURIComponent(workID))
+                            .attr("href", "#bookDetails")
                             .text(title);
 
                         result.append($("<h3></h3>").append(bookLink));
