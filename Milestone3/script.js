@@ -270,13 +270,42 @@
 
       var book = data.works[i];
       var title = book.title || "Unknown Title";
+      var workID = book.key;
 
-       $("#collectionResults").append(
-        $("<p></p>").text(title)
-        );
+       var result = $("<div></div>");
+
+       if (workID) {
+
+        var bookLink = $("<a></a>")
+          .attr("href", "#bookDetails")
+          .text(title);
+
+        bookLink.data("workID", workID);
+
+        bookLink.click(function(event) {
+         event.preventDefault();
+
+         var selectedID = $(this).data("workID");
+         showBookDetails(selectedID);
+
+        });
+
+        result.append(
+         $("<h3></h3>").append(bookLink)
+         );
+
+       } else {
+
+        result.append(
+         $("<h3></h3>").text(title)
+         );
+
+       }
+
+       $("#collectionResults").append(result);
 
       }
-
+       
      }).fail(function() {
 
       $("#collectionResults").text("Unable to retrieve history books.");
