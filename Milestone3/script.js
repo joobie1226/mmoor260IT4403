@@ -206,10 +206,19 @@
               $("<p></p>").text(description)
               );
 
+             if (book.subjects && book.subjects.length > 0) {
+
+              $("#bookDetails").append(
+               $("<h4></h4>").text("Subjects:")
+               );
+
+              var subjectList = $("<ul></ul>");
+              
+
              for (var i = 0; i < Math.min(10, book.subjects.length); i++) {
 
               subjectList.append(
-               $("<li></li>").text(book..subjects[i])
+               $("<li></li>").text(book.subjects[i])
                );
              }
 
@@ -218,7 +227,7 @@
             } else {
 
              $("#bookDetails").append(
-              $( $("<p></p>").text("No subjects available")
+              $("<p></p>").text("No subjects available")
                 );
 
             }
