@@ -121,6 +121,10 @@
                 });
             }
 
+
+
+  
+
            function showBookDetails(workID) {
 
             workID = workID.replace ("/works/", "");
@@ -162,6 +166,11 @@
 
              }
 
+
+
+
+
+             
              if (book.authors && book.authors.length > 0) {
 
               var authorNames = [];
@@ -172,12 +181,19 @@
 
                $.getJSON("https://openlibrary.org" + authorID + ".json", function(author) {
 
-                authorNames.push(author.name);
+                authorNames.push(author.name || "Unknown Author");
+
+                $("#authorInfo").text("Author(s): " + authorNames.join(", "));
+
+               }).fail(function() {
+
+                authorNames.push("Unknown Author");
 
                 $("#authorInfo").text("Author(s): " + authorNames.join(", "));
 
                });
-              }
+              
+             }
 
               $("#bookDetails").append(
                $("<p></p>").attr("id", "authorInfo").text("Loading author(s)...")
@@ -191,6 +207,13 @@
 
              }
 
+
+
+
+
+
+
+             
              var description = "No description available.";
              
              if (typeof book.description === "string") {
@@ -206,6 +229,13 @@
               $("<p></p>").text(description)
               );
 
+
+
+
+
+
+
+             
              if (book.subjects && book.subjects.length > 0) {
 
               $("#bookDetails").append(
@@ -250,6 +280,14 @@
                                        
         });
            }
+
+
+
+
+
+
+
+  
     function loadBookCollection() {
 
      var url = "https://openlibrary.org/subjects/history.json?limit=10";
