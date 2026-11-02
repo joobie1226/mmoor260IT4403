@@ -83,6 +83,15 @@
                             .attr("href", "#bookDetails")
                             .text(title);
 
+                       bookLink.click(function(event) {
+                        event.preventDefault();
+
+                        var selectedID = $(this).data("workID");
+                        showBookDetails(selectedID);
+                       });
+
+                       bookLink.data("workID", workID);
+
                         result.append($("<h3></h3>").append(bookLink));
                     } else {
                         
@@ -102,6 +111,7 @@
                         $("#searchResults").append(result);
                     }
                 }).fail(function() {
+                    totalPages = 0;
                     $("#pagination").hide();
                     $("#searchResults").text("Unable to retreive books.");
                 }).always(function() {
@@ -110,4 +120,49 @@
                     $("#nextPage").prop("disabled", currentPage >= totalPages);
                 });
             }
+
+           function showBookDetails(workID) {
+
+            workID = workID.replace ("/works/", "");
+
+            var url = "https://openlibrary.org/works/"
+             + encodeURIComponent(workID) + ".json";
+
+            $("#bookDetails").text("Loading book information...");
+
+            $.getJSON(url, function(book) {
+             $("#bookDetails").empty();
+
+             var title = book.title || "Unknown Title";
+
+             $("#bookDetails").append(
+              $("<h3></h3>").text(title)
+              );
+
+             $("#bookDetails").append(
+              $("<p></p>").text("Work ID: " + workID)
+              );
+
+             var description = "No description available.";
+             
+             if (typeof book.description === "string") {
+              description = book.description;
+
+             } else if (book.description && book.description.value) {
+
+              description = book.description.value;
+
+             }
+
+             $("#bookDetails").append(
+              $("<p></p>").text(description)
+              );
+
+            }).fail(function() {
+
+             $("#bookDetails").text("Unable to retreive book information.");
+                                       
         });
+           }
+ });
+            
