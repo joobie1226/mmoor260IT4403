@@ -3,7 +3,7 @@
             var searchTerm = "";
             var currentPage =1;
             var totalPages = 0;
-  $("#searchResults").on("click", ".book-link", function(event) {
+  $("#searchResults, #collectionResults").on("click", ".book-link", function(event) {
    event.preventDefault();
 
    var selectedID = $(this).attr("data-workid");
@@ -209,88 +209,47 @@
         
 
   
-    function loadBookCollection() {
+  function loadBookCollection() {
 
-     var url = "https://openlibrary.org/subjects/history.json?limit=10";
+   var url = "https://openlibrary.org/subjects/history.json?limit=10";
 
-     $("#collectionResults").text("Loading history books...");
+   $("#collectionResults").text("Loading history books...");
 
-     $.getJSON(url, function(data) {
+   $.getJSON(url, function(data) {
 
-      $("#collectionResults").empty();
-
-      if (!data.works || data.works.length === 0) {
-       $("#collectionResults").text("No history books found.");
-       return;
-
-      }
-
-      for (var i = 0; i < data.works.length; i++) {
-
-      var book = data.works[i];
-      var title = book.title || "Unknown Title";
-      var workID = book.key;
-
-       var result = $("<div></div>");
-
-       if (workID) {
-
-        var bookLink = $("<a></a>")
-          .attr("href", "#bookDetails")
-          .text(title);
-
-        bookLink.data("workID", workID);
-
-        bookLink.click(function(event) {
-         event.preventDefault();
-
-         var selectedID = $(this).data("workID");
-         showBookDetails(selectedID);
-
-        });
-
-        result.append(
-         $("<h3></h3>").append(bookLink)
-         );
-
-       } else {
-
-        result.append(
-         $("<h3></h3>").text(title)
-         );
-
-       }
-
-       if (book.cover_id) {
-
-        var cover = "https://covers.openlibrary.org/b/id/"
-        + book.cover_id + "-S.jpg";
-
-        result.append(
-         $("<img>")
-          .attr("src", cover)
-          .attr("alt", "Cover of " + title)
-        );
-
-       } else {
-
-        result.append(
-         $("<p></p>").text("No cover available.")
-        );
-
-       }
-
-       $("#collectionResults").append(result);
-
-      }
-       
-     }).fail(function() {
-
-      $("#collectionResults").text("Unable to retrieve history books.");
-
-     });
+    if (!data.works || data.works.length === 0) {
+     $("#collectionResults").text("No history books found.");
+     return; 
     }
 
-  loadBookCollection();
+    var books = []; 
 
+    for(var i = 0; i < data.works.length; i++) {
+
+     var book = data.works[i]; 
+
+    books.push({
+     title: book.title || "Unknown Title", 
+     workID: book.key || "",
+     cover: book.cover_id
+       ? "https://covers.openlibrary.org/b/id/"
+        + book.cover_id + "-S.jpg"
+       : ""
+
+    });
+   }
+
+   var template = $("#bookTemplate").html();
+
+   var rendered = Mustache.render(template, {
+    books: books
+   });
+
+   $("#collectionResults").html(rendered);
+
+  }).fail(function() {
+
+  $("#collectionResults").text("unable to retrieve history books.");
+  
  });
+}
