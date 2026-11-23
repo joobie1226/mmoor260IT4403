@@ -19,7 +19,7 @@
 
 $("#showCollection").click(function() {
  $("#searchSection").hide();
- $("#collectionSection).show();
+ $("#collectionSection").show();
    });
     
 
