@@ -12,6 +12,17 @@
     .addClass("list-view");
   });
 
+  $("#showSearch").click(function() {
+    $("#collectionSection").hide();
+    $("#searchSection").show();
+ });
+
+$("#showCollection").click(function() {
+ $("#searchSection").hide();
+ $("#collectionSection).show();
+   });
+    
+
             var searchTerm = "";
             var currentPage =1;
             var totalPages = 0;
