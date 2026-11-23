@@ -1,5 +1,17 @@
  $(document).ready(function() {
 
+  $("#gridView").click(function() {
+   $("#searchResults")
+    .removeClass("list-view")
+    .addClass("grid-view");
+  });
+
+  $("#listView").click(function() {
+   $("#searchResults")
+    .removeClass("grid-view")
+    .addClass("list-view");
+  });
+
             var searchTerm = "";
             var currentPage =1;
             var totalPages = 0;
