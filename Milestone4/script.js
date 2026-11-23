@@ -6,9 +6,9 @@
   $("#searchResults").on("click", ".book-link", function(event) {
    event.preventDefault();
 
-   var selectedID = $(this).attr("data-workID");
+   var selectedID = $(this).attr("data-workid");
 
-   if(selectedID) {
+   if (selectedID) {
     showBookDetails(selectedId);
    }
   });  
@@ -71,12 +71,9 @@
                  $("#pageInfo").text("Page " + currentPage + " of " + totalPages);
                  $("#previousPage").prop("disabled", currentPage === 1);
                  $("#nextPage").prop("disabled", currentPage === totalPages);
-                 $("#pagination").show();
-
-                  
-                    
-
-              var books = {};
+                 $("#pagination").show(); 
+      
+              var books = [];
 
              for (var i = 0; i < data.docs.length; i++) {
               var book = data.docs[i]; 
@@ -95,7 +92,7 @@
                    books: books
                  });
 
-                 $(#searchButton").html(rendered);
+                 $("#searchButton").html(rendered);
                  
                 }).fail(function() {
                     totalPages = 0;
