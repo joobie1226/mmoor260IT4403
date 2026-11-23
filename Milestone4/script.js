@@ -15,11 +15,17 @@
   $("#showSearch").click(function() {
     $("#collectionSection").hide();
     $("#searchSection").show();
+
+   $("#showSearch").addClass("active");
+    $("#showCollection").removeClass("active");
  });
 
 $("#showCollection").click(function() {
  $("#searchSection").hide();
  $("#collectionSection").show();
+
+  $("#showCollection").addClass("active");
+    $("#showSearch").removeClass("active");
    });
     
 
