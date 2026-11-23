@@ -38,10 +38,13 @@ button {
 #searchResults, #collectionResults {
     max-width: 900px;
     margin: 30px auto;
+    gap: 20px;
+}
+
+#collectionResults {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
 }
 
 
@@ -92,6 +95,48 @@ button {
 }
 
 #searchResults img, #collectionResults img {
+    max-width: 100px;
+    height: auto;
+}
+
+.layout-controls {
+    margin: 20px 0;
+}
+
+.layout-controls button {
+    margin: 5px;
+}
+
+.grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    max-width: 9000px;
+    margin: 30px auto;
+}
+
+.list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 900px;
+    margin: 30px atuo;
+}
+
+.book-card {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+.list-view .book-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+}
+
+.book-card img {
     max-width: 100px;
     height: auto;
 }
