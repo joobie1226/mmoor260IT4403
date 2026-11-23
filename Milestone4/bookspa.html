@@ -33,6 +33,27 @@
 
       <div id="searchResults"></div>
 
+    <script id="bookTemplate" type="x-tmpl-mustache">
+        {{#books}}
+        <div class="book-card">
+            <h3>
+                    <a href="#bookDetails" class="book-link"
+                        data-workid="{{workID}}">
+                            {{title}}
+                        </a>
+                    </h3>
+
+                    {{#cover}}
+                    <img src="{{cover}}" alt="Cover of {{title}}">
+                    {{/cover}}
+
+                    {{^cover}}
+                    <p>No cover available</p>
+                    {{/cover}}
+                </div>
+                {{/books}}
+            </script>
+
       <div id="pagination" style="display: none;">
         <button id="previousPage">Previous</button>
         <span id="pageInfo"></span>
