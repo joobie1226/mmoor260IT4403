@@ -9,7 +9,7 @@
    var selectedID = $(this).attr("data-workid");
 
    if (selectedID) {
-    showBookDetails(selectedId);
+    showBookDetails(selectedID);
    }
   });  
             $("#searchButton").click(function() {
