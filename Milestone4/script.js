@@ -253,3 +253,7 @@
   
  });
 }
+
+loadBookCollection();
+
+ });
