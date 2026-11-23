@@ -92,7 +92,7 @@
                    books: books
                  });
 
-                 $("#searchButton").html(rendered);
+                 $("#searchResults").html(rendered);
                  
                 }).fail(function() {
                     totalPages = 0;
