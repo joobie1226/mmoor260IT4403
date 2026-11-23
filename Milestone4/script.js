@@ -3,8 +3,15 @@
             var searchTerm = "";
             var currentPage =1;
             var totalPages = 0;
-  
+  $("#searchResults").on("click", ".book-link", function(event) {
+   event.preventDefault();
 
+   var selectedID = $(this).attr("data-workID");
+
+   if(selectedID) {
+    showBookDetails(selectedId);
+   }
+  });  
             $("#searchButton").click(function() {
 
                 searchTerm =$("#searchInput").val().trim();
@@ -69,47 +76,27 @@
                   
                     
 
-                    for (var i=0; i < data.docs.length; i++) {
-                        var book = data.docs[i];
-                        var title = book.title || "Unknown Title";
-                        
-                        var result = $("<div></div>");
+              var books = {};
 
-                        var workID = book.key;
-                        
+             for (var i = 0; i < data.docs.length; i++) {
+              var book = data.docs[i]; 
 
-                    if(workID) {
-                        var bookLink = $("<a></a>")
-                            .attr("href", "#bookDetails")
-                            .text(title);
+              books.push({
+               title: book.title || "Unknown Title",
+               workID: book.key || "",
+               cover: book.cover_i
+                   ? "https://covers.openlibrary.org/b/id/" + book.cover_i + "-S.jpg"
+                   : ""
+              });
+           }
+                 var template = $("#bookTemplate").html();
 
-                       bookLink.click(function(event) {
-                        event.preventDefault();
+                 var rendered = Mustache.render(template, {
+                   books: books
+                 });
 
-                        var selectedID = $(this).data("workID");
-                        showBookDetails(selectedID);
-                       });
-
-                       bookLink.data("workID", workID);
-
-                        result.append($("<h3></h3>").append(bookLink));
-                    } else {
-                        
-                        result.append($("<h3></h3>").text(title));
-                    }
-
-                        if (book.cover_i) {
-                            var cover = "https://covers.openlibrary.org/b/id/"
-                                + book.cover_i + "-S.jpg";
-
-                            result.append($("<img>").attr("src", cover)
-                                          .attr("alt", "Cover of "+ title));
-                        } else {
-                            result.append("<p>No cover available</p>");
-                        }
-
-                        $("#searchResults").append(result);
-                    }
+                 $(#searchButton").html(rendered);
+                 
                 }).fail(function() {
                     totalPages = 0;
                     $("#pagination").hide();
