@@ -66,6 +66,48 @@
         <p>Select a book for more information about it</p>
       </div>
 
+        <script id="detailsTemplate" type="x-tmpl-mustache">
+            <div class="book-details-card">
+                <h3>{{title}}</h3>
+
+                <p><strong>Work ID:</strong> {{workID}}</p>
+
+                {{#cover}}
+                <img src="{{cover}}" alt="Cover of {{title}}">
+                {{/cover}}
+
+                {{^cover}}
+                <p>No cover available</p>
+                {{/cover}}
+
+                <p><strong>Author(s):</strong> {{authors}}</p>
+
+                <h4>Description:</h4>
+                <p>{{description}}</p>
+
+                <h4>Subjects:</h4>
+                {{#hasSubjects}}
+                <ul>   
+                    {{#subjects}}
+                    <li>{{name}}</li>
+                    {{/subjects}}
+                </ul>
+                {{/hasSubjects}}
+
+                {{^hasSubjects}}
+                <p>No subjects available</p>
+                {{/hasSubjects}}
+
+                <p>
+                    <a href="{{openLibraryURL}}" target="_blank"
+                        rel="noopener noreferrer">
+                        View on Open Library
+                    </a>
+                </p>
+            </div>
+        </script>
+            
+
       <h2>Books on History</h2>
 
       <div id="collectionResults">
