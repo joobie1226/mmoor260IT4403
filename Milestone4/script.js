@@ -105,171 +105,108 @@
                 });
             }
 
+  function showBookDetails(workID) {
+   if (!workID) {
+    $("#bookDetails").text("No book selected.");
+    return;
+   }
 
+   workID = workID.replace("/works/", "");
 
-  
+   var url = "https://openlibrary.org/works/"
+    + encodeURIComponent(workID) +".json";
 
-           function showBookDetails(workID) {
+   $("#bookDetails").text("Loading book information...");
 
-            workID = workID.replace ("/works/", "");
+   $.getJSON(url, function(book) {
 
-            var url = "https://openlibrary.org/works/"
-             + encodeURIComponent(workID) + ".json";
+    var title = book.title || "Unknown Title";
 
-            $("#bookDetails").text("Loading book information...");
+    var cover = "";
 
-            $.getJSON(url, function(book) {
-             $("#bookDetails").empty();
+    if (book.covers && book.covers.length > 0) {
+     cover = "https://covers.openlibrary.org/b/id/"
+      + book.covers[0] + "-M.jpg";
+    }
 
-             var title = book.title || "Unknown Title";
+    var description = "No description available.";
 
-             $("#bookDetails").append(
-              $("<h3></h3>").text(title)
-              );
+    if (typeof book.description === "string") {
+     description = book.description; 
+    } else if (book.description && book.description.value) {
+     description = book.description.value; 
+    }
 
-             $("#bookDetails").append(
-              $("<p></p>").text("Work ID: " + workID)
-              );
+    var subjects = [];
 
-             if (book.covers && book.covers.length > 0){
+    if (book.subjects && book.subjects.length > 0) {
+     for (var i = 0; i < Math.min(10, book.subjects.length); i++) {
+      subjects.push({
+       name: book.subjects[i]
+      });
+     } 
+    }
 
-              var cover = "https://covers.openlibrary.org/b/id/"
-               + book.covers[0] + "-M.jpg";
+    function renderDetails(authors) {
 
-              $("#bookDetails").append(
-               $("<img>")
-                 .attr("src", cover)
-                 .attr("alt", "Cover of " + title)
-              );
+     var template = $("#detailsTemplate").html(); 
 
-             } else {
+     var rendered = Mustache.render(template, {
+      title: title, 
+      workID: workID, 
+      cover: cover, 
+      authors: authors, 
+      description: description, 
+      subjects: subjects, 
+      hasSubjects: subjects.length > 0,
+      openLibraryURL: "https://openlibrary.org/works/" + workID
+     });
 
-              $("#bookDetails").append(
-                $("<p></p>").text("No cover available")
-               );
+     $("#bookDetails").html(rendered);
+    }
 
-             }
+    if (book.authors && book.authors.length > 0) {
 
+     var authorRequests = [];
 
+     for (var i = 0; i < book.authors.length; i++) {
 
+      var authorID = book.authors[i].author.key; 
 
+      var request = $.getJSON(
+       "https://openlibrary.org" + authorID + ".json" 
+       ).then(
+        function(author) {
+         return author.name || "Unknown Author";
+        },
+       function() {
+        return "Unknown Author";
 
-             
-             if (book.authors && book.authors.length > 0) {
+       }
+       
+       );
 
-              var authorNames = [];
+      authorRequests.push(request);
+     }
 
-              for (var i = 0; i < book.authors.length; i++) {
+     $.when.apply($, authorRequests).done(function() {
 
-               var authorID = book.authors[i].author.key;
+      var authorNames = Array.prototype.slice.call(arguments);
 
-               $.getJSON("https://openlibrary.org" + authorID + ".json", function(author) {
+      renderDetails(authorNames.join(", "));
+     });
 
-                authorNames.push(author.name || "Unknown Author");
+    } else {
+       renderDetails("No author information available");
+    }
 
-                $("#authorInfo").text("Author(s): " + authorNames.join(", "));
+   }).fail(function() {
 
-               }).fail(function() {
+    $("#bookDetails").text("Unable to retrieve book information.");
 
-                authorNames.push("Unknown Author");
-
-                $("#authorInfo").text("Author(s): " + authorNames.join(", "));
-
-               });
-              
-             }
-
-              $("#bookDetails").append(
-               $("<p></p>").attr("id", "authorInfo").text("Loading author(s)...")
-               );
-
-             } else {
-
-              $("#bookDetails").append(
-               $("<p></p>").text("No author information available")
-               );
-
-             }
-
-
-
-
-
-
-
-             
-             var description = "No description available.";
-             
-             if (typeof book.description === "string") {
-              description = book.description;
-
-             } else if (book.description && book.description.value) {
-
-              description = book.description.value;
-
-             }
-
-             $("#bookDetails").append(
-              $("<p></p>").text(description)
-              );
-
-
-
-
-
-
-
-             
-             if (book.subjects && book.subjects.length > 0) {
-
-              $("#bookDetails").append(
-               $("<h4></h4>").text("Subjects:")
-               );
-
-              var subjectList = $("<ul></ul>");
-              
-
-             for (var i = 0; i < Math.min(10, book.subjects.length); i++) {
-
-              subjectList.append(
-               $("<li></li>").text(book.subjects[i])
-               );
-             }
-
-             $("#bookDetails").append(subjectList);
-
-            } else {
-
-             $("#bookDetails").append(
-              $("<p></p>").text("No subjects available")
-                );
-
-            }
-
-            var openLibraryURL = "https://openlibrary.org/works/" + workID;
-
-             $("#bookDetails").append(
-              $("<p></p>").append(
-               $("<a></a>")
-                .attr("href", openLibraryURL)
-                .attr("target", "_blank")
-                .attr("rel", "noopener noreferrer")
-                .text("View on Open Library")
-               )
-              );
-
-            }).fail(function() {
-
-             $("#bookDetails").text("Unable to retreive book information.");
-                                       
-        });
-           }
-
-
-
-
-
-
+   });
+  }
+        
 
   
     function loadBookCollection() {
