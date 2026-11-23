@@ -162,3 +162,9 @@ button {
 .view-navigation button:hover {
     background-color: #444;
 }
+
+.view-navigation button.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
