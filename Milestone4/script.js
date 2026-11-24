@@ -151,6 +151,8 @@ $("#showCollection").click(function() {
 
     var title = book.title || "Unknown Title";
 
+    var publicationDate = book.first_publish_date || "Publication data unavailable.";
+
     var cover = "";
 
     if (book.covers && book.covers.length > 0) {
@@ -185,6 +187,7 @@ $("#showCollection").click(function() {
       workID: workID, 
       cover: cover, 
       authors: authors, 
+      publicationDate: publicationDate,
       description: description, 
       subjects: subjects, 
       hasSubjects: subjects.length > 0,
